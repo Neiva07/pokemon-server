@@ -5,6 +5,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/jinzhu/gorm"
+	"golang.org/x/crypto/bcrypt"
 
 	u "pokemon-server/utils"
 )
@@ -24,6 +25,7 @@ type Account struct {
 	Token    string `json:"token";sql:"-"`
 }
 
+// validate function to validate the login
 func (account *Account) validate() (map[string]interface{}, bool) {
 
 	if !strings.Contains(account.Email, "@") {
@@ -34,4 +36,26 @@ func (account *Account) validate() (map[string]interface{}, bool) {
 		return u.Message(false, "Password must be unless 6 character long"), false
 	}
 
+	temp := &Account{}
+
+	err := GetDB().Table("accounts").Where("email = ?", account.Email).First(temp).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return u.Message(false, "Connection error. Please try again later."), false
+	}
+
+	if temp.Email != "" {
+		return u.Message(false, "Email address already in use."), false
+	}
+
+	return u.Message(false, "Requirement passed"), true
+
+}
+
+func (account *Account) Create() map[string]interface{} {
+
+	if resp, ok := account.validate(); !ok {
+		return resp
+	}
+
+	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(account.Password), bcrypt.DefaultCost)
 }
