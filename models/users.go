@@ -1,10 +1,12 @@
 package models
 
 import (
+	"os"
 	"strings"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/jinzhu/gorm"
+	"golang.org/x/crypto/bcrypt"
 
 	u "pokemon-server/utils"
 )
@@ -50,20 +52,60 @@ func (account *Account) validate() (map[string]interface{}, bool) {
 
 }
 
-// func (account *Account) Create() map[string]interface{} {
+//Create function to create user account and hash the password into the database
+func (account *Account) Create() map[string]interface{} {
 
-// 	if resp, ok := account.validate(); !ok {
-// 		return resp
-// 	}
+	if resp, ok := account.validate(); !ok {
+		return resp
+	}
 
-// 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(account.Password), bcrypt.DefaultCost)
+	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(account.Password), bcrypt.DefaultCost)
 
-// 	account.Password = string(hashedPassword)
+	account.Password = string(hashedPassword)
 
-// 	GetDB().Create(account)
+	GetDB().Create(account)
 
-// 	if account.ID <= 0 {
-// 		return u.Message(false, "Failed to create an account. Connection error.")
-// 	}
+	if account.ID <= 0 {
+		return u.Message(false, "Failed to create an account. Connection error.")
+	}
 
-// }
+	tk := Token{UserId: account.ID}
+	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), tk)
+	tokenString, _ := token.SignedString([]byte(os.Getenv("token_password")))
+
+	account.Token = tokenString
+	account.Password = ""
+
+	response := u.Message(true, "Account has been created")
+	response["account"] = account
+	return response
+
+}
+
+func Login(email string, password string) map[string]interface{} {
+
+	account := &Account{}
+
+	err := GetDB().Table("accounts").Where("email = ?", email).First(account).Error
+
+	if err != nil {
+		if err == gorm.ErrRecordNotFound {
+			return u.Message(false, "Email address not register")
+		}
+
+		return u.Message(false, "Connection error. Please retry")
+	}
+
+	account.Password = "" // for safity
+
+	tk := &Token{UserId: account.ID}
+
+	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), tk)
+	tokenString, _ := token.SignedString([]byte(os.Getenv("token_password")))
+	account.Token = tokenString
+
+	resp := u.Message(true, "Logged in")
+	resp["account"] = account
+	return resp
+
+}
