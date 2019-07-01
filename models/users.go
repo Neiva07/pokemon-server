@@ -5,7 +5,6 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/jinzhu/gorm"
-	"golang.org/x/crypto/bcrypt"
 
 	u "pokemon-server/utils"
 )
@@ -51,11 +50,20 @@ func (account *Account) validate() (map[string]interface{}, bool) {
 
 }
 
-func (account *Account) Create() map[string]interface{} {
+// func (account *Account) Create() map[string]interface{} {
 
-	if resp, ok := account.validate(); !ok {
-		return resp
-	}
+// 	if resp, ok := account.validate(); !ok {
+// 		return resp
+// 	}
 
-	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(account.Password), bcrypt.DefaultCost)
-}
+// 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(account.Password), bcrypt.DefaultCost)
+
+// 	account.Password = string(hashedPassword)
+
+// 	GetDB().Create(account)
+
+// 	if account.ID <= 0 {
+// 		return u.Message(false, "Failed to create an account. Connection error.")
+// 	}
+
+// }
