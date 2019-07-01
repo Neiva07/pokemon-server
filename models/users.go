@@ -82,6 +82,7 @@ func (account *Account) Create() map[string]interface{} {
 
 }
 
+//Login function to handle with the request of the database
 func Login(email string, password string) map[string]interface{} {
 
 	account := &Account{}
@@ -96,7 +97,7 @@ func Login(email string, password string) map[string]interface{} {
 		return u.Message(false, "Connection error. Please retry")
 	}
 
-	account.Password = "" // for safity
+	account.Password = "" // for safety
 
 	tk := &Token{UserId: account.ID}
 
