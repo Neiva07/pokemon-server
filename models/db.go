@@ -19,8 +19,6 @@ func init() {
 		log.Print(err)
 	}
 
-	fmt.Println("kkk")
-
 	username := os.Getenv("db_user")
 	password := os.Getenv("db_pass")
 	dbName := os.Getenv("db_name")
