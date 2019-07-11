@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 	"os"
+	app "pokemon-server/app"
 	controllers "pokemon-server/controllers"
-	m "pokemon-server/models"
 
 	"github.com/gorilla/mux"
 )
@@ -18,7 +18,8 @@ func main() {
 	router.HandleFunc("/api/user/signin", controllers.Authenticate).Methods("POST")
 	router.HandleFunc("/api/user/signup", controllers.SignUp).Methods("POST")
 
-	m.GetDB()
+	router.Use(app.JwtAuthentication)
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
