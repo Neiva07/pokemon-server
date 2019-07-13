@@ -102,7 +102,11 @@ func Login(email string, password string) map[string]interface{} {
 	tk := &Token{UserId: account.ID}
 
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("HS256"), tk)
-	tokenString, _ := token.SignedString([]byte(os.Getenv("token_password")))
+	tokenString, err := token.SignedString([]byte(os.Getenv("token_password")))
+	if err != nil {
+		return u.Message(false, "something went wrong with the login system")
+	}
+
 	account.Token = tokenString
 
 	resp := u.Message(true, "Logged in")
