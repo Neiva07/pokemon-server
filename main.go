@@ -15,8 +15,8 @@ func main() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/", mainFunc).Methods("GET")
-	router.HandleFunc("/api/user/signin", controllers.Authenticate).Methods("POST")
-	router.HandleFunc("/api/user/signup", controllers.SignUp).Methods("POST")
+	router.HandleFunc("/api/users/signin", controllers.Authenticate).Methods("POST")
+	router.HandleFunc("/api/users/signup", controllers.SignUp).Methods("POST")
 
 	router.Use(app.JwtAuthentication)
 
