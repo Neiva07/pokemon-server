@@ -31,7 +31,7 @@ var SignUp = func(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(newAccount)
 
 	if err != nil {
-		u.Response(w, u.Message(false, "invalid Field. Please, try again."))
+		u.Response(w, u.Message(false, "Something went wrong. Please, try again."))
 		return
 	}
 
