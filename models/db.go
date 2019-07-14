@@ -10,14 +10,13 @@ import (
 	"github.com/joho/godotenv"
 )
 
-var db *gorm.DB
+//Database the data struct to hold the db itself and the methods attached to it
+type Database struct {
+	db *gorm.DB
+}
 
-func init() {
-	err := godotenv.Load()
-
-	if err != nil {
-		log.Print(err)
-	}
+//Initialize method to initialize the database
+func (DB *Database) Initialize() {
 
 	username := os.Getenv("db_user")
 	password := os.Getenv("db_pass")
@@ -32,12 +31,29 @@ func init() {
 	if err != nil {
 		log.Print(err)
 	}
-	db = conn
-	db.Debug().AutoMigrate(&Account{})
+	DB.db = conn
+	DB.db.Debug().AutoMigrate(&Account{})
 
 }
 
 //GetDB --exporting the database to the rest of the application
-func GetDB() *gorm.DB {
-	return db
+func (DB *Database) GetDB() *gorm.DB {
+	return DB.db
+}
+
+//DB declare the variable that could be exported
+var DB Database
+
+func init() {
+	// err := godotenv.Load()
+
+	// if err != nil {
+	// 	log.Print(err)
+	// }
+	err := godotenv.Load(os.ExpandEnv("$GOPATH/src/pokemon-server/.env"))
+
+	if err != nil {
+		log.Print(err)
+	}
+	DB.Initialize()
 }

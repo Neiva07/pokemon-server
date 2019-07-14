@@ -39,7 +39,7 @@ func (account *Account) validate() (map[string]interface{}, bool) {
 
 	temp := &Account{}
 
-	err := GetDB().Table("accounts").Where("email = ?", account.Email).First(temp).Error
+	err := DB.GetDB().Table("accounts").Where("email = ?", account.Email).First(temp).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
 		return u.Message(false, "Connection error. Please try again later."), false
 	}
@@ -63,7 +63,7 @@ func (account *Account) Create() map[string]interface{} {
 
 	account.Password = string(hashedPassword)
 
-	GetDB().Create(account)
+	DB.GetDB().Create(account)
 
 	if account.ID <= 0 {
 		return u.Message(false, "Failed to create an account. Connection error.")
@@ -87,7 +87,7 @@ func Login(email string, password string) map[string]interface{} {
 
 	account := &Account{}
 
-	err := GetDB().Table("accounts").Where("email = ?", email).First(account).Error
+	err := DB.GetDB().Table("accounts").Where("email = ?", email).First(account).Error
 
 	if err != nil {
 		if err == gorm.ErrRecordNotFound {
