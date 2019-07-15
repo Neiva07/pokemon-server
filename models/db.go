@@ -36,7 +36,7 @@ func (DB *Database) Initialize() {
 
 }
 
-//GetDB --exporting the database to the rest of the application
+//GetDB exporting the database to the rest of the application
 func (DB *Database) GetDB() *gorm.DB {
 	return DB.db
 }

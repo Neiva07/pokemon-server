@@ -16,6 +16,8 @@ type App struct {
 	Router *mux.Router
 }
 
+//ExecuteRequest is a method to execute http requests
+
 //UseRouter Method to initilize all routers of the app
 func (app *App) UseRouter() {
 	app.Router = mux.NewRouter()

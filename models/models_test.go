@@ -7,7 +7,6 @@ import (
 
 func TestCreate(t *testing.T) {
 
-	t.Parallel()
 	type testUser struct {
 		Acc      *Account
 		response map[string]interface{}
@@ -46,6 +45,7 @@ func TestCreate(t *testing.T) {
 	for ind, testCase := range tests {
 		fmt.Println(ind)
 		respGot := testCase.Acc.Create()
+
 		if respGot["status"] != testCase.response["status"] || respGot["message"] != testCase.response["message"] {
 			t.Errorf("Expected %v, got %v at the response message. Case %v", testCase.response, respGot, (*testCase.Acc).Email)
 		}
