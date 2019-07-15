@@ -77,12 +77,11 @@ func TestSignUp(t *testing.T) {
 		if err != nil {
 			t.Error("unexpected error happend:", err)
 		}
-		response := u.ExecuteRequest(SignUp, req)
 
+		response := u.ExecuteRequest(SignUp, req)
 		u.CheckResponseCode(t, http.StatusOK, response.Code)
 
 		var body map[string]interface{}
-
 		json.Unmarshal(response.Body.Bytes(), &body)
 
 		if body["status"] != testCase.response["status"] {
@@ -91,16 +90,33 @@ func TestSignUp(t *testing.T) {
 		if body["message"] != testCase.response["message"] {
 			t.Errorf("Expected message '%v'. Got '%v'", testCase.response["message"], body["message"])
 		}
-
-		if body["account"] != nil {
+		if body["status"] == true {
 			acc := body["account"].(map[string]interface{})
 
 			if acc["email"] != (*testCase.Acc).Email {
 				t.Errorf("Expected account '%v'. Got '%v'", (*testCase.Acc).Email, acc["email"])
 
 			}
+			//add more fields when restructure the Accounts
 		}
 
 	}
+
+}
+
+func TestGetAllAccounts(t *testing.T) {
+
+	req, err := http.NewRequest("GET", "/accounts", nil)
+
+	if err != nil {
+		t.Error("unexpected error happend:", err)
+	}
+
+	response := u.ExecuteRequest(GetAllAccounts, req)
+
+	u.CheckResponseCode(t, http.StatusOK, response.Code)
+
+	accounts := &[]models.Account{}
+	models.DB.GetDB().Table("accounts").Find(accounts)
 
 }
