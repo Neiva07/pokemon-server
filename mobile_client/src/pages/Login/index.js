@@ -6,14 +6,8 @@ import {
   statusCodes,
 } from 'react-native-google-signin';
 import AsyncStorage from '@react-native-community/async-storage';
+import styles from './styles';
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 export default function Login({navigation}) {
   useEffect(() => {
     GoogleSignin.configure({
