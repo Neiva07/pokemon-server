@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "467952177460",
+    "firebase_url": "https://pokemon-game-62a59.firebaseio.com",
+    "project_id": "pokemon-game-62a59",
+    "storage_bucket": "pokemon-game-62a59.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:467952177460:android:6b362fc434a831a6609561",
+        "android_client_info": {
+          "package_name": "com.mobile_client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "467952177460-ifehl1sljdd6pkvj8c772vtjfk8s3bot.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mobile_client",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "467952177460-bulsjjsifel2jrfsuad97qcrjni44e1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ4QCMcO8jppGAPuLXli-REj-M6_4Iu-g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "467952177460-bulsjjsifel2jrfsuad97qcrjni44e1b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
