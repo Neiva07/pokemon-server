@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, SafeAreaView} from 'react-native';
+import {TouchableOpacity, Text, SafeAreaView} from 'react-native';
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -11,10 +11,8 @@ import styles from './styles';
 export default function Login({navigation}) {
   useEffect(() => {
     GoogleSignin.configure({
-      // what API you want to access on behalf of the user, default is email and profile
       webClientId:
         '467952177460-bulsjjsifel2jrfsuad97qcrjni44e1b.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
-      // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
     });
   }, []);
 
@@ -30,6 +28,7 @@ export default function Login({navigation}) {
 
       navigation.navigate('Main', {user: idToken});
     } catch (error) {
+      console.error(error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
@@ -59,6 +58,9 @@ export default function Login({navigation}) {
         onPress={this.signIn}
         disabled={false}
       />
+      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        <Text>GO TO MAIN PAGE</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
