@@ -26,7 +26,7 @@ export default function Login({navigation}) {
 
       await AsyncStorage.setItem('user', idToken);
 
-      navigation.navigate('Main', {user: idToken});
+      navigation.navigate('Home', {user: idToken});
     } catch (error) {
       console.error(error);
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
