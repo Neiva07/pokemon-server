@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {TouchableOpacity, Image} from 'react-native';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -8,35 +8,48 @@ import Main from './pages/Main';
 import FriendList from './pages/FriendList';
 import Ranking from './pages/Ranking';
 import Profile from './pages/Profile';
+import Game from './pages/Game';
+import pokeballIcon from '../assets/images/pokeball64px.png';
+import pokedexIcon from '../assets/images/pokedex64px.png';
+import crownIcon from '../assets/images/crown64px.png';
+import playerIcon from '../assets/images/player64px.png';
+
 const tabNavigator = createBottomTabNavigator(
   {
     Home: {
       screen: Main,
-      tabBarButtonComponent: TouchableOpacity,
       navigationOptions: {
         tabBarLabel: 'Play',
-        tabBarIcon: props => <Icon name="gamepad" size={28} color="#e66d45" />,
+        tabBarIcon: (
+          <Image style={{width: 28, height: 28}} source={pokeballIcon} />
+        ),
       },
     },
     FriendList: {
       screen: FriendList,
       navigationOptions: {
         tabBarLabel: 'Friend List',
-        tabBarIcon: <Icon name="users" size={28} color="#3299d9" />,
+        tabBarIcon: (
+          <Image style={{width: 30, height: 30}} source={playerIcon} />
+        ),
       },
     },
     Ranking: {
-      screen: Ranking,
+      screen: Game,
       navigationOptions: {
         tabBarLabel: 'Ranking',
-        tabBarIcon: <Icon name="trophy" size={28} color="#edd839" />,
+        tabBarIcon: (
+          <Image style={{width: 30, height: 30}} source={crownIcon} />
+        ),
       },
     },
     Profile: {
       screen: Profile,
       navigationOptions: {
         tabBarLabel: 'Profile',
-        tabBarIcon: <Icon name="home" size={28} color="#34e365" />,
+        tabBarIcon: (
+          <Image style={{width: 30, height: 30}} source={pokedexIcon} />
+        ),
       },
     },
   },
@@ -44,6 +57,8 @@ const tabNavigator = createBottomTabNavigator(
     tabBarOptions: {
       activeBackgroundColor: '#477dcc',
       activeTintColor: 'white',
+      inactiveTintColor: 'black',
+      inactiveBackgroundColor: '#dede54',
     },
   },
 );
