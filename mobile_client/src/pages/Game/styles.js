@@ -4,7 +4,6 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 10,
   },
   buttonContainer: {
     width: '100%',
@@ -13,20 +12,25 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   button: {
-    marginVertical: 20,
+    marginVertical: 10,
     borderColor: 'rgba(0,0,0,0.5)',
     borderStyle: 'solid',
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 40,
-    height: 45,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     elevation: 5,
-    width: '80%',
+    width: '60%',
   },
   buttonText: {
     color: 'white',
     fontSize: 25,
+  },
+  pokemonImage: {
+    resizeMode: 'stretch',
+    width: 200,
+    height: 200,
   },
 });

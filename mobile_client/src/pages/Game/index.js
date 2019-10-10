@@ -5,23 +5,24 @@ import {
   View,
   TouchableOpacity,
   ImageBackground,
+  Image,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import CountdownCircle from 'react-native-countdown-circle';
 import backgroundImage from '../../../assets/images/pokeball-background.jpg';
+import PikachuImage from '../../../assets/images/Pikachu.png';
 import styles from './styles';
 
 function Game() {
   const [gameIsOn, setGameIsOn] = useState(false);
   return (
-    <SafeAreaView>
-      <ImageBackground
-        source={backgroundImage}
-        style={{
-          width: '100%',
-          height: '100%',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}>
+    <SafeAreaView style={{flex: 1}}>
+      <LinearGradient
+        style={styles.root}
+        colors={['#e2a253', '#f3d361']}
+        useAngle
+        angle={135}
+        angleCenter={{x: 0.5, y: 0.5}}>
         <View style={{marginTop: 10}}>
           <CountdownCircle
             style={{marginTop: 2}}
@@ -35,9 +36,8 @@ function Game() {
             onTimeElapsed={() => console.log('Game Ended!')}
           />
         </View>
-
         <View>
-          <Text>POKEMON IMAGE GOES HERE</Text>
+          <Image style={styles.pokemonImage} source={PikachuImage} />
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
@@ -61,7 +61,7 @@ function Game() {
             <Text style={styles.buttonText}>Pokemon 4</Text>
           </TouchableOpacity>
         </View>
-      </ImageBackground>
+      </LinearGradient>
     </SafeAreaView>
   );
 }
