@@ -8,6 +8,7 @@ import {
   Image,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {Brightness} from 'react-native-color-matrix-image-filters';
 import CountdownCircle from 'react-native-countdown-circle';
 import backgroundImage from '../../../assets/images/pokeball-background.jpg';
 import PikachuImage from '../../../assets/images/Pikachu.png';
@@ -37,7 +38,9 @@ function Game() {
           />
         </View>
         <View>
-          <Image style={styles.pokemonImage} source={PikachuImage} />
+          <Brightness amount={0}>
+            <Image style={styles.pokemonImage} source={PikachuImage} />
+          </Brightness>
         </View>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
